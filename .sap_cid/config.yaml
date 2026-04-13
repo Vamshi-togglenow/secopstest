@@ -1,23 +1,21 @@
-general:
-  buildTool: "npm"
-  productiveBranch: "test"
-
+---
 stages:
-  Build:
-    enabled: true
-  Acceptance:
-    enabled: false
-  Release:
-    enabled: true
+  build:
+    buildTool: "npm"
+    buildToolVersion: "Node_22"
+    buildDescriptor: "package.json"
+    npmScript: "build"
 
-steps:
-  npmExecuteScripts:
-    runScripts:
-      - install
-      - build
+  acceptance:
+    cloudFoundryDeploy:
+      apiEndpoint: "https://api.cf.us10-001.hana.ondemand.com"
+      org: "ccb1d7c7trial"
+      space: "dev"
+      credential: "btpauthsecops"
 
-  cloudFoundryDeploy:
-    apiEndpoint: "https://api.cf.us10-001.hana.ondemand.com"
-    org: "ccb1d7c7trial"
-    space: "dev"
-    credentialsId: "btpauthsecops"
+  release:
+    cloudFoundryDeploy:
+      apiEndpoint: "https://api.cf.us10-001.hana.ondemand.com"
+      org: "ccb1d7c7trial"
+      space: "dev"
+      credential: "btpauthsecops"
