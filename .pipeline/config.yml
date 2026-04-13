@@ -9,8 +9,11 @@ stages:
     enabled: false
 
   Release:
-    cloudFoundryDeploy:
-      apiEndpoint: "https://api.cf.us10-001.hana.ondemand.com"
-      org: "ccb1d7c7trial"
-      space: "dev"
-      credentialsId: "btpauthsecops"
+    enabled: true
+
+steps:
+  cloudFoundryDeploy:
+    apiEndpoint: "https://api.cf.us10-001.hana.ondemand.com"
+    org: "ccb1d7c7trial"
+    space: "dev"
+    credentialsId: "btpauthsecops"
