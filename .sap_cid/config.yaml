@@ -2,19 +2,19 @@
 stages:
   build:
     buildTool: "npm"
-    buildToolVersion: "Node_22"
+    buildToolVersion: "N22"
     buildDescriptor: "package.json"
     npmScript: "build"
 
   acceptance:
-    cloudFoundryDeploy:
+    cfDeploy:
       apiEndpoint: "https://api.cf.us10-001.hana.ondemand.com"
       org: "ccb1d7c7trial"
       space: "dev"
       credential: "btpauthsecops"
 
   release:
-    cloudFoundryDeploy:
+    cfDeploy:
       apiEndpoint: "https://api.cf.us10-001.hana.ondemand.com"
       org: "ccb1d7c7trial"
       space: "dev"
