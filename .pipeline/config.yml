@@ -1,0 +1,14 @@
+stages:
+  build:
+    enabled: false
+
+  malwareScan:
+    scan: false
+
+  release:
+    cfDeploy:
+      strategy: "default"
+      apiEndpoint: "https://api.cf.us10-001.hana.ondemand.com"
+      org: "ccb1d7c7trial"
+      space: "dev"
+      credential: "btpauthsecops"

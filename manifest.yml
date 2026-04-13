@@ -1,0 +1,8 @@
+applications:
+  - name: nginx-test-app
+    memory: 128M
+    disk_quota: 256M
+    instances: 1
+    buildpacks:
+      - staticfile_buildpack
+    path: .
