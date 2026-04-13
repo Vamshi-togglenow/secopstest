@@ -3,9 +3,10 @@ general:
   productiveBranch: "test"
 
 stages:
-  Acceptance:
+  Build:
     enabled: true
-
+  Acceptance:
+    enabled: false
   Release:
     enabled: true
 
