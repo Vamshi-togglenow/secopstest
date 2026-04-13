@@ -1,14 +1,16 @@
+general:
+  buildTool: "custom"
+
 stages:
-  build:
+  Build:
     enabled: false
 
-  malwareScan:
-    scan: false
+  Acceptance:
+    enabled: false
 
-  release:
-    cfDeploy:
-      strategy: "default"
+  Release:
+    cloudFoundryDeploy:
       apiEndpoint: "https://api.cf.us10-001.hana.ondemand.com"
       org: "ccb1d7c7trial"
       space: "dev"
-      credential: "btpauthsecops"
+      credentialsId: "btpauthsecops"
