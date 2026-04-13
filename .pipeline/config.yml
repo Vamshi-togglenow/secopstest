@@ -1,6 +1,6 @@
 general:
   buildTool: "npm"
-  productiveBranch: "main"
+  productiveBranch: "test"
 
 stages:
   Acceptance:
