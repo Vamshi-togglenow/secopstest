@@ -6,12 +6,6 @@ stages:
     buildDescriptor: "package.json"
     npmScript: "build"
 
-  acceptance:
-    cfDeploy:
-      apiEndpoint: "https://api.cf.us10-001.hana.ondemand.com"
-      org: "ccb1d7c7trial"
-      space: "dev"
-      credential: "btpauthsecops"
 
   release:
     cfDeploy:
