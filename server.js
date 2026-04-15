@@ -4,7 +4,7 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 
 app.get("/", (req, res) => {
-  res.send("🚀 SAP CI/CD Node App Working ToggleNow!");
+  res.send("🚀 SAP CI/CD Node App Working ToggleNOW!");
 });
 
 app.listen(PORT, () => {
