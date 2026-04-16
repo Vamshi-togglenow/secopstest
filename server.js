@@ -36,7 +36,7 @@ app.post("/addUser", (req, res) => {
     const conn = getConnection();
 
     const query = `
-        INSERT INTO "secopsdev"."SUPERUSER"
+        INSERT INTO "SECOPSDEV"."SUPERUSER"
         ("USER_ID", "USER_NAME", "LOCATION")
         VALUES (?, ?, ?)
     `;
@@ -47,11 +47,12 @@ app.post("/addUser", (req, res) => {
             return res.status(500).send("DB ERROR: " + err.message);
         }
 
+        console.log("Insert success");
         res.send("User added successfully");
+
         conn.disconnect();
     });
 });
-
 // ✅ Optional test API (for debugging DB connection)
 app.get("/test", (req, res) => {
     const conn = getConnection();
