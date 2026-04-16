@@ -1,5 +1,5 @@
 applications:
-  - name: user-app
+  - name: userapp
     memory: 256M
     buildpacks:
       - nodejs_buildpack
