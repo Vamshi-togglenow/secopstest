@@ -17,10 +17,15 @@ console.log("HANA_USER:", process.env.HANA_USER);
 function getConnection() {
     const conn = hana.createConnection();
 
+    const services = JSON.parse(process.env.VCAP_SERVICES);
+
+    const hanaService = services["user-provided"]
+        .find(s => s.name === "secops").credentials;
+
     conn.connect({
-        serverNode: process.env.HANA_HOST + ":443",
-        uid: process.env.HANA_USER,
-        pwd: process.env.HANA_PASSWORD,
+        serverNode: hanaService.HANA_HOST + ":443",
+        uid: hanaService.HANA_USER,
+        pwd: hanaService.HANA_PASSWORD,
         encrypt: true
     });
 
