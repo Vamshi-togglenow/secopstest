@@ -36,6 +36,8 @@ function getConnection() {
 app.post("/addUser", (req, res) => {
     const { userId, userName, location } = req.body;
 
+    console.log("Received:", userId, userName, location);
+
     const conn = getConnection();
 
     const query = `
@@ -46,8 +48,8 @@ app.post("/addUser", (req, res) => {
 
     conn.exec(query, [userId, userName, location], (err) => {
         if (err) {
-            console.error("DB ERROR:", err);
-            return res.status(500).send("Insert failed: " + err.message);
+            console.error("DB ERROR:", err);   // 👈 IMPORTANT
+            return res.status(500).send(err.message); // 👈 show real error
         }
 
         res.send("User added successfully");
