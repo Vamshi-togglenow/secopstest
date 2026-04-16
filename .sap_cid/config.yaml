@@ -1,15 +1,17 @@
 ---
+general:
+  buildTool: "npm"
+
 stages:
-  build:
-    buildTool: "npm"
+  Build:
     buildToolVersion: "N22"
-    buildDescriptor: "package.json"
-    npmScript: "build"
+    npmExecuteBuild: true
+    npmBuildScript: "build"
 
-
-  release:
-    cfDeploy:
-      apiEndpoint: "https://api.cf.us10-001.hana.ondemand.com"
-      org: "ccb1d7c7trial"
-      space: "dev"
-      credential: "btpauthsecops"
+  Deploy:
+    cloudFoundryDeploy: true
+    cfApiEndpoint: "https://api.cf.us10-001.hana.ondemand.com"
+    cfOrg: "ccb1d7c7trial"
+    cfSpace: "dev"
+    cfCredentialsId: "btpauthsecops"
+    cfAppName: "user-app"

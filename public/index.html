@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Form</title>
+</head>
+<body>
+    <h2>Add User</h2>
+
+    <form id="userForm">
+        <input type="text" id="userId" placeholder="User ID" required><br><br>
+        <input type="text" id="userName" placeholder="User Name" required><br><br>
+        <input type="text" id="location" placeholder="Location" required><br><br>
+        <button type="submit">Submit</button>
+    </form>
+
+    <p id="response"></p>
+
+    <script>
+        document.getElementById("userForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const data = {
+                userId: document.getElementById("userId").value,
+                userName: document.getElementById("userName").value,
+                location: document.getElementById("location").value
+            };
+
+            const res = await fetch("/addUser", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            });
+
+            document.getElementById("response").innerText = await res.text();
+        });
+    </script>
+</body>
+</html>
