@@ -4,7 +4,7 @@ stages:
     buildTool: "npm"
     buildToolVersion: "N22"
     buildDescriptor: "package.json"
-    npmscripts: "build"
+    npmExecuteBuild: false
 
   release:
     cfDeploy:
