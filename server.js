@@ -8,24 +8,19 @@ app.use(express.static("public"));
 
 const port = process.env.PORT || 3000;
 
-// 🔍 Debug (optional but useful)
+// 🔍 Debug (optional but helpful)
 console.log("ENV CHECK:");
 console.log("HANA_HOST:", process.env.HANA_HOST);
 console.log("HANA_USER:", process.env.HANA_USER);
 
-// ✅ HANA connection (ENV variables)
+// ✅ HANA connection using ENV variables
 function getConnection() {
     const conn = hana.createConnection();
 
-    const services = JSON.parse(process.env.VCAP_SERVICES);
-
-    const hanaService = services["user-provided"]
-        .find(s => s.name === "secops").credentials;
-
     conn.connect({
-        serverNode: hanaService.HANA_HOST + ":443",
-        uid: hanaService.HANA_USER,
-        pwd: hanaService.HANA_PASSWORD,
+        serverNode: process.env.HANA_HOST + ":443",
+        uid: process.env.HANA_USER,
+        pwd: process.env.HANA_PASSWORD,
         encrypt: true
     });
 
@@ -48,8 +43,8 @@ app.post("/addUser", (req, res) => {
 
     conn.exec(query, [userId, userName, location], (err) => {
         if (err) {
-            console.error("DB ERROR:", err);   // 👈 IMPORTANT
-            return res.status(500).send(err.message); // 👈 show real error
+            console.error("DB ERROR:", err);
+            return res.status(500).send("DB ERROR: " + err.message);
         }
 
         res.send("User added successfully");
@@ -57,7 +52,21 @@ app.post("/addUser", (req, res) => {
     });
 });
 
-// 🚨 THIS IS THE MISSING PART (VERY IMPORTANT)
+// ✅ Optional test API (for debugging DB connection)
+app.get("/test", (req, res) => {
+    const conn = getConnection();
+
+    conn.exec("SELECT 1 FROM DUMMY", (err, result) => {
+        if (err) {
+            console.error("TEST ERROR:", err);
+            return res.send("DB connection failed: " + err.message);
+        }
+        res.send("DB Connected Successfully!");
+        conn.disconnect();
+    });
+});
+
+// 🚨 REQUIRED for Cloud Foundry
 app.listen(port, "0.0.0.0", () => {
     console.log(`Server running on port ${port}`);
 });
