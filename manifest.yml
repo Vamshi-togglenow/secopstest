@@ -1,5 +1,5 @@
 applications:
-  - name: secops-test
+  - name: secops_test2
     memory: 256M
     buildpacks:
       - nodejs_buildpack
