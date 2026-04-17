@@ -1,5 +1,5 @@
 applications:
-  - name: secops_test2
+  - name: userapp2
     memory: 256M
     buildpacks:
       - nodejs_buildpack

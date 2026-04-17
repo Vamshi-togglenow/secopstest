@@ -11,4 +11,4 @@ stages:
       org: "ccb1d7c7trial"
       space: "dev"
       credential: "btpauthsecops"
-      appName: "secops_test2"
+      appName: "userapp2"
