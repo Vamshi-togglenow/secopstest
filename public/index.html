@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>SECOPS User App</title>
+    <style>
+        body {
+            font-family: Arial;
+            margin: 40px;
+        }
+
+```
+    h2 {
+        color: #333;
+    }
+
+    input {
+        padding: 8px;
+        width: 250px;
+    }
+
+    button {
+        padding: 8px 15px;
+        background-color: #0070f2;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #005bb5;
+    }
+
+    table {
+        border-collapse: collapse;
+        margin-top: 20px;
+        width: 60%;
+    }
+
+    th, td {
+        border: 1px solid #ccc;
+        padding: 10px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    #response {
+        margin-top: 15px;
+        font-weight: bold;
+    }
+</style>
+```
+
+</head>
+
+<body>
+
+<h2>➕ Add User</h2>
+
+<form id="userForm">
+    <input type="number" id="userId" placeholder="User ID" required><br><br>
+    <input type="text" id="userName" placeholder="User Name" required><br><br>
+    <input type="text" id="location" placeholder="Location" required><br><br>
+    <button type="submit">Submit</button>
+</form>
+
+<p id="response"></p>
+
+<hr>
+
+<h2>📋 User List</h2>
+<button onclick="loadUsers()">🔄 Refresh</button>
+
+<table id="userTable">
+    <thead>
+        <tr>
+            <th>User ID</th>
+            <th>User Name</th>
+            <th>Location</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<script>
+document.getElementById("userForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const data = {
+        userId: document.getElementById("userId").value,
+        userName: document.getElementById("userName").value,
+        location: document.getElementById("location").value
+    };
+
+    try {
+        const res = await fetch("/addUser", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        });
+
+        const text = await res.text();
+        document.getElementById("response").innerText = text;
+
+        // Clear form
+        document.getElementById("userForm").reset();
+
+        // Reload table
+        loadUsers();
+
+    } catch (err) {
+        document.getElementById("response").innerText = "Error: " + err.message;
+    }
+});
+
+async function loadUsers() {
+    try {
+        const res = await fetch("/getUsers");
+        const data = await res.json();
+
+        const tbody = document.querySelector("#userTable tbody");
+        tbody.innerHTML = "";
+
+        data.forEach(user => {
+            const row = `
+                <tr>
+                    <td>${user.USER_ID}</td>
+                    <td>${user.USER_NAME}</td>
+                    <td>${user.LOCATION}</td>
+                </tr>
+            `;
+            tbody.innerHTML += row;
+        });
+
+    } catch (err) {
+        console.error("Error loading users:", err);
+    }
+}
+
+// Load users on page load
+loadUsers();
+</script>
+
+</body>
+</html>

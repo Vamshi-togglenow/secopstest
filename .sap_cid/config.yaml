@@ -4,8 +4,6 @@ stages:
     buildTool: "npm"
     buildToolVersion: "N22"
     buildDescriptor: "package.json"
-    npmScript: "build"
-
 
   release:
     cfDeploy:
@@ -13,3 +11,4 @@ stages:
       org: "ccb1d7c7trial"
       space: "dev"
       credential: "btpauthsecops"
+      appName: "userapp2"
